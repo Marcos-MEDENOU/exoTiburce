@@ -1,7 +1,11 @@
-import java.io.StreamTokenizer;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 //import java.util.ArrayList;import java.util.Arrays;
 public class Main{
@@ -25,6 +29,7 @@ public class Main{
         System.out.println("TAPER LE NOMBRE A METTRE AU CARRE");
         int value= scr.nextInt();
         System.out.println("Vous avez saisi : " + value + ". Son carré donne "+ value*value);
+        scr.close();
     }
     /*************************************************************************************** */
     //firstUpperCaseV1 est plus solide.
@@ -361,19 +366,29 @@ public class Main{
         int strSplitInt[]= new int [strSplit.length];
         
         for(int i = 0 ;  i < strSplit.length ; i++){
-            strSplitInt[i]=(int)strSplit[i];
+
+            // String val = strSplit[i];
+            // int k = Integer.valueOf(val).intValue();
+            // strSplitInt[i]=k;
+
+            /**
+             * Integer.parseInt() permet de convertir une chaine de caractere
+             * en string 
+             */
+            strSplitInt[i]=  Integer.parseInt(strSplit[i]);
         }
 
         Arrays.sort(strSplitInt);
-        String [] res=new String[2];
+        System.out.println(Arrays.toString(strSplitInt));
+        int [] res=new int[2];
         /**
          * la plus petite et la grande valeur sont stockés dans le tableau 
          * res
          */
-        res[0]=strSplit[0];
-        res[1]= strSplit[strSplit.length- 1];
+        res[0]=strSplitInt[0];
+        res[1]= strSplitInt[strSplitInt.length- 1];
         String result = ""; 
-        for(String i  :res ){
+        for(int i :res ){
             result += i+" ";
         }
         System.out.println(result);
@@ -381,10 +396,104 @@ public class Main{
 
 /******************************************************************** */
 
-    public static void main(String args[]) {
-        String chaine= "1 -8 -9 45 3 15 2 0 0 987";
+    public static void Calculator(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Taper le premier nombre");
+        int number1 = scanner.nextInt();
+        System.out.println("Taper le deuxieme nombre");
+        int number2 = scanner.nextInt();
+        System.out.println("Taper l'operateur");
+        scanner.nextLine();
+        char oper = scanner.nextLine().charAt(0);
+        if(oper =='+'){
+            System.out.println(number1+number2);
+        }
+        /**
+         * fermer le scanner
+         */
+        scanner.close();
+    }
+
+    public static void showUserInfos(){
         
-        getExtremum(chaine);
+
+        String option;
+        while(true){
+            option = JOptionPane.showInputDialog("Calculatrice \n Do you wish to proceed? \n Y for yes and N for No");
+        
+            switch(option){
+                case "Y":
+                    String num1 = JOptionPane.showInputDialog("Enter the first number : ");
+                    String operation = JOptionPane.showInputDialog("Operations:\n + for addition\n - for subtraction\n * for multiplication\n / for division"
+                            + "Enter the operation:");
+                    String num2 = JOptionPane.showInputDialog("Enter the second number : ");
+                
+                    switch(operation){
+                        case "+":
+                            JOptionPane.showMessageDialog(null,Integer.parseInt(num1) + Integer.parseInt(num2));
+                            break;
+                        case "-":
+                            JOptionPane.showMessageDialog(null, Integer.parseInt(num1) - Integer.parseInt(num2));
+                            break;
+                        case "*":
+                            JOptionPane.showMessageDialog(null,Integer.parseInt(num1) * Integer.parseInt(num2));
+                            break;
+                        case "/":
+                            JOptionPane.showMessageDialog(null, Integer.parseInt(num1) / Integer.parseInt(num2));
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "Please enter a valid operator\n Operations: + for addition\n - for subtraction\n * for multiplication\n / for division");
+                    }break;
+                case "N":
+                    System.exit(0);
+                default:
+                    JOptionPane.showMessageDialog(null,"You entered an invalid key!");
+                    break;
+            }      
+        }
+    }
+ 
+    static int plusMethod(int x, int y) {
+        return x + y;
+    }
+      
+    static int plusMethod(byte x, int y) {
+        return x + y;
+    }
+    /*
+     * calculer la difference entre une suite de nombre
+     */
+    public  int SumDiffArrayV1(int [] array){
+
+        Integer[] tab = new Integer [array.length];
+
+        Arrays.sort(array);
+
+       for(int i =0 ; i<array.length ; i++ ){
+            tab[i]= array[i] ; 
+       }
+
+       Arrays.sort(tab ,  Collections.reverseOrder());
        
+       int response= 0 ;
+
+       for(int i = 0 ; i < tab.length-1 ; i++ ){
+        response += (tab[i]-tab[i+1]);
+       }
+
+       return array.length > 0 ? response:0;
+    }
+    public static void main(String args[]) {
+        /*
+         * création d'un objet
+         */
+        Main instance = new Main(); 
+       int tab1[] = {2,1,10};
+    //    int tab2[]= {3,7,5,9};
+    //    int response1= instance.SumDiffArray(tab1);
+    //    int response2= instance.SumDiffArray(tab2);
+    //    System.out.println(response1);
+        int res= instance.SumDiffArrayV1(tab1);
+        System.out.println(res);
     }
 }

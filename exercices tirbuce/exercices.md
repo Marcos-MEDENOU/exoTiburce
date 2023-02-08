@@ -205,3 +205,12 @@ NB: la ponctuation, n'est pas prise en compte (! ? .)
 
 ex: latinPing("hello!") devrait retourner "ellohay!"
 ex: latinPing("bonjour à tous!") devrait retourner "onjourbay àay tousay !
+
+## Exercice 15: swap
+Creez une fonction swap qui permete deux variables passées en argument
+
+## Exercice 16: hyp
+Creez une fonction hyp qui calcule l'hypothénus d'un triangle et affiche tous les cotés
+
+## Exercice 17 (codeWar):
+
